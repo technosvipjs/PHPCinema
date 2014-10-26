@@ -23,7 +23,7 @@ class buy_ticket
           . ' values(:order_id, ,:client_id, :client_name, :client_pay, :screen_id, :screen_number, :screen_time, :movie_title, :seat)'
           . 'ON DUPLICATE KEY UPDATE order_id = LAST_INSERT_ID(order_id)'; 
             
-            $new_ticket = $db->prepare($status);
+            $new_ticket = $php_cinema_db->prepare($sql);
             $new_ticket->bindParam(':order_id', $order_id);
             $new_ticket->bindParam(':client_id', $number);
             $new_ticket->bindParam(':client_name', $client_name);
@@ -37,7 +37,14 @@ class buy_ticket
             
             $ticket_newId = $db->lastInsertId(); 
           
+            $results_sql = 'select * ROM ticket_order, screens ,clients WHERE ticket_order.order_id = screens.screen_id'
+                    . 'ticket_order.order_id = clients.client_id order by client_id limit 1';
             
+            $results = $php_cinema_db->prepare($results_sql);
+            
+            $row = $results->fetch();
+            
+            echo  json_encode($row);  
             
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
