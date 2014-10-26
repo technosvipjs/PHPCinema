@@ -16,7 +16,7 @@ class movie
             
           $movie_id = ""; 
             
-          $ticket_sql = 'insert into movie(movie_id, ,movie_title, movie_descripion, movie_pic)'
+          $ticket_sql = 'insert into movies(movie_id, ,movie_title, movie_descripion, movie_pic)'
           . ' values(:movie_id, ,:movie_title, :movie_descripion, :movie_pic)'
           . 'ON DUPLICATE KEY UPDATE movie_id = LAST_INSERT_ID(movie_id)'; 
             
